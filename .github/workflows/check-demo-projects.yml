@@ -32,7 +32,6 @@ jobs:
         run: |
           mkdir ./tests/screenshots
           npm run check-domains
-
       - name: Upload failure screenshots
         uses: actions/upload-artifact@v2
         if: failure()
