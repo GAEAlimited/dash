@@ -7,6 +7,7 @@ import SubscriptionForm from "../SubscriptionForm";
 type CheckAddressProps = { account: any };
 
 const CheckAddress = ({ account }: CheckAddressProps) => {
+  
   const { state, dispatch } = useUser();
   const { isCheckLoading, isSubscribed, checkerErrors } = useCheckAddress(account.address);
   const [haveSubscribed, setHaveSubscribed] = useState<boolean>(false);
@@ -51,11 +52,11 @@ const CheckAddress = ({ account }: CheckAddressProps) => {
     return <span className="pending">Checking your address</span>;
   }
 
-  if (isSubscribed === undefined) return <></>;
+  
 
   return isSubscribed || haveSubscribed ? null : (
-    <div style={{ margin: "0 1rem" }}>
-      <h3>Please enter your email to complete registration</h3>
+    <div className="checkAddressWrapper">
+      <h3 className="checkAddressTitle">Please enter your email to complete registration</h3>
 
       <SubscriptionForm
         address={account.address}

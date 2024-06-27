@@ -20,7 +20,7 @@ export const useCheckAddress = (address: string) => {
       try {
         setIsCheckLoading(true);
 
-        const _isSubscribed = await checkAddress(address);
+        const _isSubscribed = true; // temprorary no check emails  //await checkAddress(address);
 
         setIsSubscribed(_isSubscribed);
 
@@ -69,7 +69,8 @@ export const checkSubscriptionSavedAndActive = (address: string) => {
 export const checkAddress = async (address: string) => {
   const relult = await axios.get('/check', {
     params: {
-      address: address
+      address: address,
+      timeout: 3000
     }
   });
 
