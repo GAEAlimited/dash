@@ -8,10 +8,14 @@ export enum SupportedChainId {
   MAINNET = 1,
   BINANCE_SMART_CHAIN = 56,
   // POLYGON = 137,
+  // POLYGON_TESTNET = 80001,
 }
 
-export const bonusAndDiscountContractsByNetworkId = {
-//   [SupportedChainId.POLYGON]: "0xd9f89Dec54CbF10011FDc8D9FA06E1f30c3F74d4",
+
+export const bonusAndDiscountContractsByNetworkId: {
+  [k in SupportedChainId]?: string;
+} = {
+  //   [SupportedChainId.POLYGON]: "0xd9f89Dec54CbF10011FDc8D9FA06E1f30c3F74d4",
   [SupportedChainId.BINANCE_SMART_CHAIN]: "0xB0A06daCa7F05D86D8fC1e289E08f734398EaE89",
   [SupportedChainId.MAINNET]: PAYMENT_ADDRESS,
 };
@@ -44,9 +48,17 @@ export const statisticUrlsDataByNetwork: {
     apiKey: "RZ7N3TCPHFIU7Q4KA1V93MZWRN4X7F8HIT",
     apiDomain: "https://api.etherscan.io",
   },
+  // [SupportedChainId.POLYGON_TESTNET]: {
+  //   name: "POLYGON TESTNET",
+  //   networkId: SupportedChainId.POLYGON_TESTNET,
+  //   apiKey: "4JB4UXHBIE2I5285T18J8SSPUS2M3K7X3V",
+  //   apiDomain: "https://api-testnet.polygonscan.com",
+  // },
 };
 
-export const cashbackTokenAddresses = {
+export const cashbackTokenAddresses: {
+  [k in SupportedChainId]?: string;
+} = {
   // [SupportedChainId.POLYGON]: "0x654496319F438A59FEE9557940393cf818753ee9",
   [SupportedChainId.BINANCE_SMART_CHAIN]: "0x92648e4537CdFa1EE743A244465a31AA034B1ce8",
   [SupportedChainId.MAINNET]: "",
@@ -86,20 +98,6 @@ export interface Network {
 }
 
 export const NETWORKS: { [key in SupportedChainId]: Network } = {
-/* 4: {
-    id: 1,
-    name: "Rinkeby",
-    currency: {
-      id: "ethereum",
-      symbol: "ETH",
-    },
-    tokens: {
-      usdt: {
-        address: "",
-        id: "",
-      },
-    },
-  }, */
   [SupportedChainId.MAINNET]: {
     id: 1,
     chainId: `0x${(1).toString(16)}`,
@@ -107,7 +105,7 @@ export const NETWORKS: { [key in SupportedChainId]: Network } = {
     currency: {
       id: "ethereum",
       symbol: "ETH",
-      binancePurchaseKey: 'ethereum',
+      binancePurchaseKey: "ethereum",
     },
     tokens: {
       usdt: {
@@ -123,7 +121,7 @@ export const NETWORKS: { [key in SupportedChainId]: Network } = {
     currency: {
       id: "binancecoin",
       symbol: "BNB",
-      binancePurchaseKey: 'BNB',
+      binancePurchaseKey: "BNB",
     },
     tokens: {
       usdt: {
@@ -148,6 +146,17 @@ export const NETWORKS: { [key in SupportedChainId]: Network } = {
   //     },
   //   },
   // },
+  // [SupportedChainId.POLYGON_TESTNET]: {
+  //   id: SupportedChainId.POLYGON_TESTNET,
+  //   chainId: `0x${SupportedChainId.POLYGON_TESTNET.toString(16)}`,
+  //   name: "Polygon testnet",
+  //   currency: {
+  //     id: "blabla",
+  //     symbol: "MATIC",
+  //     binancePurchaseKey: "polygon-testnet-matic",
+  //   },
+  //   tokens: {},
+  // },
 };
 
 export interface Product {
@@ -169,9 +178,58 @@ export interface Product {
   adminCanEdit?: string;
   videos?: string;
   lables: string[];
+  isFee?: boolean;
+  freeDesc?: string;
+  static_link?: string;
+  wp_link?: string;
 }
 
-export const PRODUCTS: { [id: string]: Product } = {
+export interface Category {
+  [id: string]: Product;
+}
+
+export const WEB3_PRODUCTS: Category = {
+  nftstaking: {
+    id: "nftstaking",
+    productId: 10,
+    name: "NFTStake",
+    status: "ready",
+    demo: "https://shendel.github.io/nftstakedemo/",
+    videos:
+      "https://www.youtube.com/watch?v=jXwLpPIrDVQ&list=PLLtijyRvdwnbPVFWQHma7IwPniAKOWN0h&index=1&ab_channel=Onouttools",
+    description: "White-label NFTStake Platform",
+    howToEarn:
+      "NFT staking is a new way to earn passive income in the crypto world. It lets NFT holders lock their assets in DeFi platforms to receive rewards. All without the need to sell their NFT collections",
+    adminCanEdit: "Logo, title, colors, social links",
+    imgSrc: COVERS.nftstakCover,
+    imgAlt: "NFTStake promo",
+    promoPage: "OnOut NFTStake",
+    promoPageLink: "https://onout.org/nftstake/",
+    docsLink: "",
+    codecanyonLink: "",
+    lables: ["new"],
+    price: 500,
+  },
+  launchpad: {
+    id: "launchpad",
+    productId: 9,
+    name: "IDOFactory",
+    status: "ready",
+    demo: "https://launchpad.onout.org/",
+    videos: "https://www.youtube.com/watch?v=jiJBoMpr5tQ&list=PLLtijyRvdwnYDfXZnpaFDe2KNBB4r0FmD&index=1",
+    description: "White-label Decentralized IDO Launchpad Platform",
+    howToEarn: "Use your own token to creating IDO pools. Use native coin (ETH, BNB etc.) to create Token Lockers",
+    adminCanEdit: "Logo, title, social links, services' fees, admin and fee addresses",
+    imgSrc: COVERS.launchpadCover,
+    imgAlt: "Launchpad promo",
+    promoPage: "OnOut IDOFactory",
+    promoPageLink: "https://onout.org/launchpad/",
+    docsLink: "https://support.onout.org/hc/1331700057/category/9",
+    codecanyonLink:
+      "https://codecanyon.net/item/idofactory-crypto-launchpad-create-ido-pools-with-token-lockers-on/39882380",
+    lables: ["new"],
+    price: 950,
+  },
   crosschain: {
     id: "crosschain",
     productId: 1,
@@ -180,7 +238,8 @@ export const PRODUCTS: { [id: string]: Product } = {
     demo: "https://crosschain.onout.org",
     videos: "https://www.youtube.com/playlist?list=PLLtijyRvdwnYqXwOpiiDvS55NCp13ZqGT",
     howToEarn: "Set up commission on all your multichain liquidity pair of tokens and each trade between them",
-    adminCanEdit: "Project name, logo, colors, social links, list of assets, tokens' swap config (includes fee percent)",
+    adminCanEdit:
+      "Project name, logo, colors, social links, list of assets, tokens' swap config (includes fee percent)",
     description: "",
     imgSrc: COVERS.crossChainCover,
     imgAlt: "crosschain bridge promo",
@@ -188,8 +247,8 @@ export const PRODUCTS: { [id: string]: Product } = {
     promoPageLink: "https://onout.org/crosschain/",
     docsLink: "https://support.onout.org/hc/1331700057/category/7",
     codecanyonLink: "",
-    lables: ["new"],
-    price: 1000,
+    lables: [],
+    price: 2000,
   },
   multicurrencywallet: {
     id: "multicurrencywallet",
@@ -217,7 +276,7 @@ export const PRODUCTS: { [id: string]: Product } = {
     productId: 3,
     name: "DeFinance (DEX)",
     status: "ready",
-    demo: "https://definance.wpmix.net",
+    demo: "https://dex.onout.org",
     videos: "https://www.youtube.com/playlist?list=PLLtijyRvdwnbsmFWRSktrBCLMovcPEb3b",
     howToEarn: "0.01% - 99% each trade",
     adminCanEdit: "Logo, colors, list of assets, links, fee percent, admin and fee addresses",
@@ -229,7 +288,9 @@ export const PRODUCTS: { [id: string]: Product } = {
     docsLink: "https://support.onout.org/hc/1331700057/category/2",
     codecanyonLink: "https://codecanyon.net/item/definance-ethereum-defi-plugin-for-wordpress/29099232",
     lables: [],
-    price: 899,
+    price: 1000,
+    isFee: true,
+    static_link: "https://github.com/appsource/dex",
   },
   farmfactory: {
     id: "farmfactory",
@@ -287,6 +348,11 @@ export const PRODUCTS: { [id: string]: Product } = {
       "https://codecanyon.net/item/multicurrency-crypto-wallet-and-exchange-widgets-for-wordpress/23532064",
     lables: [],
     price: 1500,
+    freeDesc: `As an administrator, you have two options to manage the fees associated with the lottery service:<br><br>
+    1) Service fee: You have the option to set a service fee for each round of the lottery. The service fee is transferred to your wallet address, and a portion of this fee, equal to 1/5 of the service fee, is deducted as the "onout.org" fee. This fee can be removed by purchasing the premium version of the lottery service.<br><br>
+    2) Unclaimed funds: You have the option to withdraw unclaimed funds from the bank after one months have passed since the last round of the lottery. However, please be aware that a portion of the withdrawal, equal to 1/5 of the total amount, will be deducted as the OnOut fee. If you wish to avoid this fee, you can purchase the premium version of the lottery service.`,
+    isFee: true,
+    static_link: "https://github.com/appsource/StaticLotteryBuilded",
   },
   nftmarketplace: {
     id: "nftmarketplace",
@@ -304,64 +370,38 @@ export const PRODUCTS: { [id: string]: Product } = {
     lables: [],
     price: 500,
   },
-  lenda: {
-    id: "lenda",
-    productId: 8,
-    name: "Lenda",
-    status: "development",
-    demo: "https://lenda.onout.xyz",
-    videos: "https://www.youtube.com/playlist?list=PLLtijyRvdwnYZF6BKEtUutrzNLw3p78FO",
-    description: "",
-    howToEarn: "Use your own token for a collateral",
-    adminCanEdit: "Logo, colors, styles, list of assets (ETH, Tokens)",
-    imgSrc: COVERS.lendaCover,
-    imgAlt: "Lenda promo",
-    promoPage: "OnOut lenda",
-    promoPageLink: "https://onout.org/lenda/",
-    docsLink: "",
-    codecanyonLink: "",
+};
+
+export const AI_PRODUCTS: Category = {
+  aigram: {
+    id: "aigram",
+    productId: 11,
+    name: "Sensorica",
+    status: "ready",
+    demo: "",
+    description: "Sensorica - a simple and fast way to deploy your own ChatGPT bot on Telegram",
+    howToEarn: "You can charge for access to the bot, offer premium features for a fee.",
+    adminCanEdit: "Amount of free messages, payment source, activation code",
+    videos: "https://www.youtube.com/watch?v=sQBNriNoMY4&list=PLLtijyRvdwnas9R43VIhD8r2cdT2dyEW2&index=3",
+    imgSrc: COVERS.aigram,
+    imgAlt: "Sensorica promo",
+    promoPage: "OnOut Sensorica",
+    promoPageLink: "https://onout.org/AiGram/",
+    docsLink: "https://support.onout.org/hc/1331700057/category/10",
+    license: "3ea24aed-98bd-4587-9280-25d251a8ca10",
     lables: ["new"],
-    price: 1000,
-  },
-  launchpad: {
-    id: "launchpad",
-    productId: 9,
-    name: "IDOFactory",
-    status: "development",
-    demo: "https://launchpad.onout.org/",
-    videos: "https://www.youtube.com/watch?v=jiJBoMpr5tQ&list=PLLtijyRvdwnYDfXZnpaFDe2KNBB4r0FmD&index=1",
-    description: "White-label Decentralized IDO Launchpad Platform",
-    howToEarn: "Use your own token to creating IDO pools. Use native coin (ETH, BNB etc.) to create Token Lockers",
-    adminCanEdit: "Logo, title, colors, social links, services' fees, admin and fee addresses",
-    imgSrc: COVERS.launchpadCover,
-    imgAlt: "Launchpad promo",
-    promoPage: "OnOut IDOFactory",
-    promoPageLink: "https://onout.org/launchpad/",
-    docsLink: "",
-    codecanyonLink: "",
-    lables: ["new"],
-    price: 650,
-  },
-  nftstaking: {
-    id: "nftstaking",
-    productId: 10,
-    name: "NFTStake",
-    status: "development",
-    demo: "https://shendel.github.io/nftstakedemo/",
-    videos: "https://www.youtube.com/watch?v=jXwLpPIrDVQ&list=PLLtijyRvdwnbPVFWQHma7IwPniAKOWN0h&index=1&ab_channel=Onouttools",
-    description: "White-label NFTStake Platform",
-    howToEarn: "NFT staking is a new way to earn passive income in the crypto world. It lets NFT holders lock their assets in DeFi platforms to receive rewards. All without the need to sell their NFT collections",
-    adminCanEdit: "Logo, title, colors, social links",
-    imgSrc: COVERS.nftstakCover,
-    imgAlt: "NFTStake promo",
-    promoPage: "OnOut NFTStake",
-    promoPageLink: "https://onout.org/nftstake/",
-    docsLink: "",
-    codecanyonLink: "",
-    lables: ["new"],
-    price: 500,
+    price: 100,
   },
 };
+
+export const PRODUCTS_BY_CATEGORY = {
+  WEB3_PRODUCTS,
+  AI_PRODUCTS,
+};
+
+export const PRODUCTS = Object.values(PRODUCTS_BY_CATEGORY).reduce((acc, category) => {
+  return { ...acc, ...category };
+}, {});
 
 interface Idea {
   id: string;

@@ -1,5 +1,6 @@
 import { useContext } from "react";
 import { Web3ConnecStateContext } from "../WithWeb3Connect";
+import { keysToLowercase } from '../../helpers/format'
 import { PRODUCTS } from "../../constants";
 import { UserActions } from "../UserProvider";
 import useUser from "../../hooks/useUser";
@@ -7,7 +8,19 @@ import Item from "./Item";
 
 import "./index.css";
 
-const ACCOUNTS: { [key: string]: string[] } = {
+const ACCOUNTS: { [key: string]: string[] } = keysToLowercase({
+  "0x8ddfbdeeeb5535d02843d1dc8334a7a0bf65f10a": [ /* User #1361 (Bridge, IDO, DEX, NFT market and lottery) */
+    "crosschain",
+    "launchpad",
+    "definance",
+    "lotteryfactory",
+    "nftmarketplace",
+  ],
+  "0xfed43b2779ac3dd8d47f3b1707abb74349bd40ff": [ /* Fokawa.com */
+    "multicurrencywallet",
+    "definance",
+    "crosschain",
+  ],
   "0xca8ec694d12a3eba9b5cdb535afe975fb8418550": [
     "multicurrencywallet",
     "definance",
@@ -16,8 +29,10 @@ const ACCOUNTS: { [key: string]: string[] } = {
     "lotteryfactory",
     "nftmarketplace",
     "crosschain",
+    "launchpad",
   ],
   "0x2a8d166495c7f854c5f2510fbd250fdab8ce58d7": [ /* @eneeseene */
+    "aigram",
     "multicurrencywallet",
     "definance",
     "farmfactory",
@@ -36,7 +51,9 @@ const ACCOUNTS: { [key: string]: string[] } = {
     "multicurrencywallet",
   ],
   "0x873351e707257C28eC6fAB1ADbc850480f6e0633": [
-    "crosschain"
+    "crosschain",
+    "launchpad",
+    "lotteryfactory"
   ],
   "0x2122ec95a2c2173ddd4f0ecc79006a0fb9e1d588": [
     "crosschain",
@@ -84,12 +101,45 @@ const ACCOUNTS: { [key: string]: string[] } = {
   ],
   "0x390f647b859f2af6581631312bfa5b85ebb6f3ee": [
     "lotteryfactory",
-    "lenda",
     "definance",
     "multicurrencywallet",
     "nftmarketplace",
-  ]
-};
+  ],
+  "0xaa2f282cd68c6bb6e71dbffb962d295a0ae31a3e": [
+    "definance",
+  ],
+  "0x8DdfBDeEeB5535D02843d1DC8334A7A0Bf65F10a": [
+    "definance",
+    "lotteryfactory",
+    "crosschain",
+    "launchpad",
+    "nftmarketplace",
+  ],
+  "0x3df823dafbf37fd4d64d3dbf07332518274a3c43": [ /* J94k */
+    "aigram",
+    "multicurrencywallet",
+    "definance",
+    "farmfactory",
+    "daofactory",
+    "lotteryfactory",
+    "nftmarketplace",
+    "crosschain",
+    "launchpad",
+  ],
+  "0x69ee075c1528ca469ad1ff8ea05ea695692f5e30": [
+    "launchpad",
+  ],
+  "0xa4e5eb72c17701660cea9f8500cc65de00d6098f": [
+    "farmfactory",
+  ],
+  "0xff8cf5130e771e19d181389c1d6af22b463d5a34": [
+    "launchpad",
+  ],
+  "0x08282e1dae05de50479a37efbbfb88086b025b89": [
+    "launchpad",
+    "lotteryfactory"
+  ],
+})
 
 const UserProducts = () => {
   const { state, dispatch } = useUser();

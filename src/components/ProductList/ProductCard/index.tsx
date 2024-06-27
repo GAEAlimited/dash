@@ -29,12 +29,13 @@ const ProductCard = (props: { id: string }) => {
     imgAlt,
     price,
     lables,
+    isFee,
   } = PRODUCTS[id];
 
   return (
     <div
       key={id}
-      className="productCard"
+      className={`productCard ${id}ProductCard`}
       onClick={() => {
       window.location.assign(`#/products/${id}`);
         openDetails();
@@ -45,7 +46,7 @@ const ProductCard = (props: { id: string }) => {
       }}
     >
       <>
-        <img src={imgSrc} alt={imgAlt} />
+        <img src={imgSrc} alt={imgAlt} className="promoImage" />
         {lables.includes('new') && (
           <div className='newProduct'>
             <img
@@ -75,7 +76,7 @@ const ProductCard = (props: { id: string }) => {
       {price && (
         <div className='boxLink'>
           <Link to={`/products/${id}`}  className="primaryBtn buyBtn">
-            {`Buy for $${price}`}
+            {isFee ? `Try it Free` : `Buy for $${price}`}
           </Link>
         </div>
       )}
